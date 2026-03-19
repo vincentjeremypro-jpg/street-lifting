@@ -16,15 +16,16 @@
   --red: #E8001D;
   --red2: #FF1A35;
   --white: #F5F5F5;
-  --black: #0D0D0D;
-  --black2: #111111;
-  --black3: #1A1A1A;
-  --black4: #222222;
-  --gray: #2E2E2E;
-  --gray2: #444444;
-  --gray3: #888888;
+  --black: #080808;
+  --black2: #101010;
+  --black3: #181818;
+  --black4: #202020;
+  --gray: #282828;
+  --gray2: #404040;
+  --gray3: #787878;
   --yellow: #FFE600;
   --green: #00C851;
+  --blue: #0096FF;
   --safe-top: env(safe-area-inset-top,0px);
   --safe-bottom: env(safe-area-inset-bottom,20px);
   --bebas: 'Bebas Neue', sans-serif;
@@ -35,389 +36,89 @@
 html,body{height:100%;overflow:hidden;background:var(--black);color:var(--white);font-family:var(--inter)}
 body{display:flex;flex-direction:column}
 
-#app-content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(72px + var(--safe-bottom))}
 
-/* ═══ HEADER ═══ */
-#app-header{
-  background:var(--black);
-  border-bottom:3px solid var(--red);
-  padding:0 0 0;flex-shrink:0;
-  padding-top:var(--safe-top);
+/* ═══ DELOAD BANNER ═══ */
+#deload-banner{
+  background:linear-gradient(135deg,#FFE600,#FFC200);
+  color:var(--black);padding:12px 16px;margin-bottom:16px;
+  border:2px solid #FFE600;display:none;
 }
-.header-banner{
-  background:var(--red);
-  padding:3px 16px;
-  font-family:var(--oswald);font-size:9px;font-weight:500;
-  letter-spacing:4px;color:var(--white);
-  display:flex;justify-content:space-between;
-}
-.header-main{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 12px}
-.brand-stack{}
-.brand-line1{font-family:var(--bebas);font-size:32px;line-height:1;color:var(--white);letter-spacing:2px}
-.brand-line1 span{color:var(--red)}
-.brand-line2{font-family:var(--oswald);font-size:10px;font-weight:300;letter-spacing:6px;color:var(--gray3);margin-top:1px}
-.header-right{display:flex;align-items:center;gap:10px}
-.count-box{
-  border:2px solid var(--red);
-  padding:6px 12px;text-align:center;
-  background:transparent;
-}
-.count-num{font-family:var(--bebas);font-size:28px;color:var(--red);line-height:1}
-.count-label{font-family:var(--oswald);font-size:7px;letter-spacing:3px;color:var(--gray3)}
-#btn-log{
-  background:var(--red);color:var(--white);border:none;
-  font-family:var(--oswald);font-size:11px;font-weight:700;letter-spacing:3px;
-  padding:10px 14px;cursor:pointer;transition:all .15s;
-  text-transform:uppercase;white-space:nowrap;
-  position:relative;overflow:hidden;
-}
-#btn-log::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0.1);opacity:0;transition:opacity .15s}
-#btn-log:active::after{opacity:1}
-#btn-log:active{transform:scale(.97)}
-#btn-log.success{background:var(--green)}
+#deload-banner.show{display:block}
+.deload-title{font-family:var(--bebas);font-size:20px;letter-spacing:3px}
+.deload-text{font-family:var(--inter);font-size:10px;margin-top:3px;color:rgba(0,0,0,0.7)}
 
-/* ═══ NAV ═══ */
-#bottom-nav{
-  position:fixed;bottom:0;left:0;right:0;
-  background:var(--black);
-  border-top:2px solid var(--gray);
-  display:flex;padding-bottom:var(--safe-bottom);z-index:100;
-}
-.nav-item{
-  flex:1;display:flex;flex-direction:column;align-items:center;
-  padding:8px 4px 5px;cursor:pointer;border:none;background:none;
-  color:var(--gray2);font-family:var(--oswald);transition:all .1s;
-  position:relative;
-}
-.nav-item.active{color:var(--white)}
-.nav-item.active::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red)}
-.nav-item:active{transform:scale(.92)}
-.nav-icon{font-size:16px;line-height:1;font-style:normal}
-.nav-label{font-size:7px;letter-spacing:2px;margin-top:4px;font-weight:600;text-transform:uppercase}
+/* ═══ JOURNAL MODAL ═══ */
+#journal-modal{display:none;position:fixed;inset:0;z-index:997;background:rgba(0,0,0,0.92);align-items:flex-end;justify-content:center}
+#journal-modal.open{display:flex}
+#journal-panel{background:var(--black);border-top:3px solid var(--green);width:100%;max-width:440px;padding:18px 16px calc(18px + var(--safe-bottom));max-height:80vh;overflow-y:auto}
+.journal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.journal-title{font-family:var(--bebas);font-size:22px;letter-spacing:3px;color:var(--green)}
+.journal-close{background:var(--black3);border:1px solid var(--gray);color:var(--gray3);width:32px;height:32px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.journal-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--gray)}
+.journal-row:last-child{border-bottom:none}
+.journal-ex-name{font-family:var(--oswald);font-size:11px;font-weight:600;flex:1;color:var(--white);letter-spacing:1px}
+.journal-input{background:var(--black3);border:1px solid var(--gray);color:var(--white);font-family:var(--bebas);font-size:16px;padding:6px 8px;width:70px;text-align:center;outline:none;-webkit-appearance:none}
+.journal-input:focus{border-color:var(--green)}
+.journal-unit{font-family:var(--oswald);font-size:9px;color:var(--gray3);letter-spacing:1px;min-width:28px}
+.journal-save-btn{background:var(--green);color:var(--black);border:none;font-family:var(--bebas);font-size:14px;letter-spacing:3px;padding:12px;width:100%;margin-top:14px;cursor:pointer}
 
-/* ═══ VIEWS ═══ */
-.view{display:none;padding:14px}
-.view.active{display:block}
+/* ═══ MORE TABS (4 tabs) ═══ */
+.more-tabs{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2px;margin-bottom:18px}
+.more-tab-btn{background:var(--black2);border:1px solid var(--gray);padding:9px 4px;font-family:var(--oswald);font-size:8px;letter-spacing:2px;color:var(--gray3);cursor:pointer;text-align:center;text-transform:uppercase;transition:all .1s}
+.more-tab-btn.active{background:var(--red);border-color:var(--red);color:var(--white)}
 
-/* ═══ SECTION LABEL ═══ */
-.sw-label{
-  font-family:var(--oswald);font-size:9px;font-weight:700;
-  letter-spacing:4px;color:var(--gray3);text-transform:uppercase;
-  margin-bottom:10px;margin-top:4px;
-  display:flex;align-items:center;gap:8px;
-}
-.sw-label::after{content:'';flex:1;height:1px;background:var(--gray)}
+/* ═══ CALCULATEUR 1RM ═══ */
+.calc-block{background:var(--black2);border:1px solid var(--gray);padding:16px;margin-bottom:14px}
+.calc-input-row{display:flex;gap:0;margin-bottom:16px}
+.calc-input{background:var(--black3);border:2px solid var(--gray);color:var(--white);font-family:var(--bebas);font-size:22px;padding:10px 14px;flex:1;outline:none;-webkit-appearance:none;text-align:center}
+.calc-input:focus{border-color:var(--red)}
+.calc-input-label{background:var(--red);color:var(--white);font-family:var(--oswald);font-size:10px;font-weight:700;letter-spacing:2px;padding:10px 12px;display:flex;align-items:center;white-space:nowrap;text-transform:uppercase}
+.calc-table{width:100%;border-collapse:collapse}
+.calc-tr{border-bottom:1px solid var(--gray)}
+.calc-tr:last-child{border-bottom:none}
+.calc-td{padding:8px 10px;font-family:var(--oswald);font-size:12px}
+.calc-td-pct{color:var(--gray3);letter-spacing:1px;width:50px}
+.calc-td-label{color:var(--white);flex:1}
+.calc-td-kg{font-family:var(--bebas);font-size:22px;color:var(--red);text-align:right;letter-spacing:1px}
+.calc-td-kg.highlight{color:var(--yellow)}
+.calc-rpe{font-family:var(--inter);font-size:9px;color:var(--gray3);margin-top:2px}
 
-/* ═══ PHASE SELECTOR ═══ */
-.phase-selector{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:16px;border:2px solid var(--gray)}
-.phase-btn{
-  background:var(--black2);border:none;padding:12px 6px;
-  text-align:center;cursor:pointer;transition:all .15s;
-  border-right:1px solid var(--gray);position:relative;
-}
-.phase-btn:last-child{border-right:none}
-.phase-btn.active{background:var(--red)}
-.phase-btn-num{font-family:var(--bebas);font-size:32px;color:var(--gray2);line-height:1;transition:color .15s}
-.phase-btn.active .phase-btn-num{color:var(--white)}
-.phase-btn-name{font-family:var(--oswald);font-size:7px;letter-spacing:2px;color:var(--gray3);margin-top:2px;text-transform:uppercase;transition:color .15s}
-.phase-btn.active .phase-btn-name{color:rgba(255,255,255,0.7)}
+/* ═══ ÉCHAUFFEMENT ═══ */
+.warmup-step{background:var(--black2);border:1px solid var(--gray);padding:12px 14px;margin-bottom:2px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .15s}
+.warmup-step.active{border-color:var(--green);background:rgba(0,200,81,0.06)}
+.warmup-step.done{opacity:0.4;border-color:var(--gray)}
+.warmup-step-num{font-family:var(--bebas);font-size:28px;color:var(--gray2);line-height:1;min-width:32px;text-align:center;transition:color .15s}
+.warmup-step.active .warmup-step-num{color:var(--green)}
+.warmup-step-info{flex:1}
+.warmup-step-name{font-family:var(--oswald);font-size:13px;font-weight:600;color:var(--white);letter-spacing:1px}
+.warmup-step-detail{font-family:var(--inter);font-size:9px;color:var(--gray3);margin-top:2px}
+.warmup-step-time{font-family:var(--bebas);font-size:20px;color:var(--gray3);line-height:1;min-width:50px;text-align:right;transition:color .15s}
+.warmup-step.active .warmup-step-time{color:var(--green)}
+.warmup-start-btn{background:var(--green);color:var(--black);border:none;font-family:var(--bebas);font-size:14px;letter-spacing:3px;padding:12px;width:100%;margin-bottom:12px;cursor:pointer}
+.warmup-start-btn.running{background:var(--red)}
 
-/* ═══ PROGRESS BLOCK ═══ */
-.prog-block{
-  border:2px solid var(--gray);
-  padding:14px;margin-bottom:16px;
-  position:relative;overflow:hidden;
-  background:var(--black2);
-}
-.prog-block::before{content:'PROGRESSION';position:absolute;top:8px;right:10px;font-family:var(--bebas);font-size:60px;color:rgba(255,255,255,0.03);line-height:1;pointer-events:none}
-.prog-numbers{display:flex;gap:24px;margin-bottom:12px}
-.prog-stat{}
-.prog-stat-num{font-family:var(--bebas);font-size:36px;line-height:1}
-.prog-stat-label{font-family:var(--oswald);font-size:8px;letter-spacing:3px;color:var(--gray3);margin-top:2px}
-.prog-pct-big{font-family:var(--bebas);font-size:64px;color:var(--red);line-height:1;position:absolute;right:14px;top:14px}
-.prog-bar-track{background:var(--gray);height:4px;width:100%}
-.prog-bar-fill{height:4px;transition:width .5s cubic-bezier(.4,0,.2,1);position:relative}
-.prog-bar-fill::after{content:'';position:absolute;right:-1px;top:-4px;width:3px;height:12px;background:currentColor}
+/* ═══ POIDS DE CORPS ═══ */
+.weight-input-row{display:flex;gap:0;margin-bottom:14px}
+.weight-input{background:var(--black3);border:2px solid var(--gray);border-right:none;color:var(--white);font-family:var(--bebas);font-size:28px;padding:10px 14px;flex:1;outline:none;-webkit-appearance:none;text-align:center}
+.weight-input:focus{border-color:var(--red)}
+.weight-add-btn{background:var(--red);color:var(--white);border:none;font-family:var(--bebas);font-size:20px;padding:10px 18px;cursor:pointer}
+.weight-chart-wrap{height:160px;position:relative;margin-bottom:14px}
+.weight-stat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-bottom:14px}
+.weight-stat{background:var(--black2);border:1px solid var(--gray);padding:12px;text-align:center}
+.weight-stat-num{font-family:var(--bebas);font-size:28px;line-height:1}
+.weight-stat-lbl{font-family:var(--oswald);font-size:7px;letter-spacing:2px;color:var(--gray3);margin-top:3px;text-transform:uppercase}
+.weight-log{display:flex;flex-direction:column;gap:2px;max-height:200px;overflow-y:auto}
+.weight-log-item{display:flex;justify-content:space-between;align-items:center;background:var(--black2);border:1px solid var(--gray);padding:7px 12px}
 
-/* ═══ SESSIONS GRID ═══ */
-.sessions-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px}
-.session-card{
-  background:var(--black2);border:1px solid var(--gray);
-  padding:12px;cursor:pointer;transition:all .15s;
-  position:relative;overflow:hidden;
-}
-.session-card.active{border-color:var(--red);background:var(--black3)}
-.session-card.active::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--red)}
-.session-day{font-family:var(--oswald);font-size:8px;letter-spacing:4px;color:var(--gray3);text-transform:uppercase}
-.session-card.active .session-day{color:var(--red)}
-.session-name{font-family:var(--bebas);font-size:18px;color:var(--white);margin-top:3px;line-height:1.1;letter-spacing:1px}
-.sess-badges{display:flex;gap:4px;margin-top:7px;flex-wrap:wrap}
-.sess-badge{font-family:var(--oswald);font-size:7px;letter-spacing:1px;padding:2px 5px;text-transform:uppercase;border:1px solid}
-
-/* ═══ EXERCISE DETAIL ═══ */
-.session-detail-block{border:2px solid var(--red);background:var(--black2);margin-bottom:2px}
-.detail-header{background:var(--red);padding:8px 14px;display:flex;align-items:center;gap:12px}
-.detail-day{font-family:var(--bebas);font-size:14px;letter-spacing:3px}
-.detail-name{font-family:var(--bebas);font-size:22px;letter-spacing:2px}
-.ex-row{
-  display:grid;grid-template-columns:1fr auto;align-items:center;
-  padding:9px 14px;border-bottom:1px solid var(--gray);
-  transition:background .1s;
-}
-.ex-row:last-child{border-bottom:none}
-.ex-row:active{background:var(--black3)}
-.ex-cat{font-family:var(--oswald);font-size:7px;letter-spacing:2px;margin-bottom:3px;text-transform:uppercase}
-.ex-name{font-family:var(--oswald);font-size:13px;font-weight:600;color:var(--white)}
-.ex-note{font-family:var(--inter);font-size:9px;color:var(--gray3);margin-top:2px}
-.ex-right{text-align:right}
-.ex-sets{font-family:var(--bebas);font-size:18px;color:var(--white);line-height:1;letter-spacing:1px}
-.ex-rest{font-family:var(--oswald);font-size:10px;color:var(--yellow);letter-spacing:1px;margin-top:2px}
-.rest-btn{
-  display:inline-block;background:var(--yellow);color:var(--black);
-  font-family:var(--oswald);font-size:8px;font-weight:700;letter-spacing:2px;
-  padding:3px 8px;cursor:pointer;margin-top:4px;border:none;
-  transition:all .1s;
-}
-.rest-btn:active{background:var(--white)}
-
-/* ═══ MILESTONE ═══ */
-.milestone-row{display:flex;gap:10px;margin-bottom:2px}
-.milestone-num{
-  background:var(--black2);border:1px solid var(--gray);
-  width:44px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;
-}
-.milestone-m{font-family:var(--oswald);font-size:7px;letter-spacing:2px;color:var(--gray3)}
-.milestone-n{font-family:var(--bebas);font-size:24px;color:var(--white);line-height:1}
-.milestone-body{
-  flex:1;background:var(--black2);border:1px solid var(--gray);
-  padding:10px 12px;cursor:pointer;transition:all .15s;
-}
-.milestone-body.active{border-color:var(--red)}
-.milestone-note{font-family:var(--inter);font-size:10px;color:var(--gray3);margin-bottom:6px}
-.milestone-vals{display:flex;gap:6px}
-.milestone-val{font-family:var(--oswald);font-size:10px;font-weight:600;letter-spacing:1px}
-.milestone-expand{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.milestone-exp-card{background:var(--black3);padding:8px 10px;border-left:3px solid var(--red)}
-.milestone-exp-label{font-family:var(--oswald);font-size:7px;letter-spacing:3px;color:var(--gray3)}
-.milestone-exp-val{font-family:var(--bebas);font-size:20px;color:var(--white);margin-top:2px;letter-spacing:1px}
-
-/* ═══ STATS ═══ */
-.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-bottom:16px}
-.stat-box{background:var(--black2);border:1px solid var(--gray);padding:14px;text-align:center}
-.stat-num{font-family:var(--bebas);font-size:40px;line-height:1}
-.stat-lbl{font-family:var(--oswald);font-size:7px;letter-spacing:3px;color:var(--gray3);margin-top:4px;text-transform:uppercase}
-
-/* ═══ PHASE BARS ═══ */
-.phase-bar-row{margin-bottom:14px}
-.phase-bar-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
-.phase-bar-name{font-family:var(--oswald);font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
-.phase-bar-count{font-family:var(--oswald);font-size:9px;color:var(--gray3);letter-spacing:2px}
-
-/* ═══ PERF CARDS ═══ */
-.perf-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-.perf-card{background:var(--black2);border:1px solid var(--gray);padding:14px;transition:all .2s;position:relative;overflow:hidden}
-.perf-card.flash{border-color:var(--red)}
-.perf-card::after{content:attr(data-icon);position:absolute;right:-4px;bottom:-8px;font-size:48px;opacity:0.06;line-height:1;pointer-events:none}
-.perf-lbl{font-family:var(--oswald);font-size:8px;letter-spacing:3px;color:var(--gray3);text-transform:uppercase;margin-bottom:4px}
-.perf-val{font-family:var(--bebas);font-size:40px;line-height:1;color:var(--white)}
-.perf-unit{font-family:var(--oswald);font-size:12px;font-weight:300;color:var(--gray3);margin-left:2px}
-.perf-sub{font-family:var(--inter);font-size:8px;color:var(--gray3);margin-top:3px}
-.perf-pct{font-family:var(--oswald);font-size:9px;color:var(--green);letter-spacing:1px;margin-top:2px}
-.prog-thin{height:2px;background:var(--gray);margin:10px 0 10px}
-.prog-thin-fill{height:2px;transition:width .4s}
-.perf-input-row{display:flex;gap:0}
-.perf-input{
-  flex:1;background:var(--black3);border:2px solid var(--gray);border-right:none;
-  padding:8px 10px;color:var(--white);font-family:var(--oswald);font-size:14px;
-  outline:none;-webkit-appearance:none;transition:border-color .15s;
-}
-.perf-input:focus{border-color:var(--red)}
-.perf-add-btn{background:var(--red);color:var(--white);border:none;padding:8px 14px;font-family:var(--bebas);font-size:20px;cursor:pointer;transition:all .1s;flex-shrink:0}
-.perf-add-btn:active{background:#B8001A}
-.vid-head{display:flex;justify-content:space-between;align-items:center;margin-top:12px;margin-bottom:6px}
-.vid-count{font-family:var(--oswald);font-size:7px;letter-spacing:3px;color:var(--gray3);text-transform:uppercase}
-.vid-add{font-family:var(--oswald);font-size:8px;font-weight:600;letter-spacing:2px;color:var(--red);border:1px solid var(--red);padding:3px 8px;cursor:pointer;text-transform:uppercase}
-.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px}
-.video-thumb{background:var(--black3);aspect-ratio:9/16;position:relative;cursor:pointer;overflow:hidden;border:1px solid var(--gray)}
-.video-thumb video{width:100%;height:100%;object-fit:cover}
-.video-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--red);border:none;width:32px;height:32px;color:#fff;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.video-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.85));padding:6px 7px}
-.video-overlay-name{font-family:var(--oswald);font-size:8px;letter-spacing:1px;color:rgba(255,255,255,0.7)}
-.video-del{position:absolute;top:4px;right:4px;background:rgba(232,0,29,0.85);border:none;width:20px;height:20px;color:#fff;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.sessions-log{display:flex;flex-direction:column;gap:2px}
-.log-item{display:flex;justify-content:space-between;align-items:center;background:var(--black2);border:1px solid var(--gray);padding:9px 12px}
-.log-date{font-family:var(--inter);font-size:11px;color:var(--gray3)}
-.log-badge{font-family:var(--oswald);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:2px 8px;border:1px solid}
-
-/* ═══ GRAPHS ═══ */
-.metric-scroll{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px}
-.metric-btn{
-  background:var(--black2);border:1px solid var(--gray);
-  padding:6px 12px;font-family:var(--oswald);font-size:9px;letter-spacing:2px;
-  color:var(--gray3);cursor:pointer;white-space:nowrap;flex-shrink:0;
-  transition:all .1s;text-transform:uppercase;
-}
-.metric-btn.active{background:var(--red);border-color:var(--red);color:var(--white)}
-.period-row{display:flex;gap:2px;margin-bottom:14px}
-.period-btn{
-  flex:1;background:var(--black2);border:1px solid var(--gray);
-  padding:7px;font-family:var(--oswald);font-size:9px;letter-spacing:2px;
-  color:var(--gray3);cursor:pointer;text-align:center;text-transform:uppercase;transition:all .1s;
-}
-.period-btn.active{background:var(--red);border-color:var(--red);color:var(--white)}
-.chart-block{background:var(--black2);border:1px solid var(--gray);padding:14px;margin-bottom:14px}
-.chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.chart-title{font-family:var(--bebas);font-size:22px;letter-spacing:2px}
-.chart-record{text-align:right}
-.chart-record-num{font-family:var(--bebas);font-size:30px;color:var(--white)}
-.chart-record-lbl{font-family:var(--oswald);font-size:7px;letter-spacing:3px;color:var(--gray3);text-transform:uppercase}
-.chart-container{height:180px;position:relative}
-.pred-ok{background:rgba(0,200,81,0.08);border:1px solid rgba(0,200,81,0.25);padding:8px 12px;margin-bottom:10px}
-.pred-warn{background:rgba(232,0,29,0.08);border:1px solid rgba(232,0,29,0.25);padding:8px 12px;margin-bottom:10px}
-.pred-text{font-family:var(--oswald);font-size:11px;font-weight:600;letter-spacing:1px}
-.pred-sub{font-family:var(--inter);font-size:9px;color:var(--gray3);margin-top:2px}
-.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-.mini-card{background:var(--black2);border:1px solid var(--gray);padding:12px;cursor:pointer;transition:border-color .1s}
-.mini-card.active{border-color:var(--red)}
-.mini-name{font-family:var(--oswald);font-size:8px;letter-spacing:2px;color:var(--gray3);text-transform:uppercase;margin-bottom:4px}
-.mini-val{font-family:var(--bebas);font-size:28px;color:var(--white);line-height:1}
-.mini-pct{font-family:var(--oswald);font-size:8px;color:var(--gray3);margin-top:4px}
-.qa-row{display:flex;gap:0;padding:8px 0;border-bottom:1px solid var(--gray)}
-.qa-row:last-child{border-bottom:none}
-.qa-name{font-family:var(--oswald);font-size:11px;font-weight:600;color:var(--gray3);min-width:100px;display:flex;align-items:center;letter-spacing:1px;text-transform:uppercase}
-
-/* ═══ NUTRITION ═══ */
-.calorie-hero{
-  background:var(--red);padding:24px 18px;margin-bottom:2px;
-  position:relative;overflow:hidden;
-}
-.calorie-hero::before{content:'2825';position:absolute;right:-10px;top:-10px;font-family:var(--bebas);font-size:120px;color:rgba(0,0,0,0.15);line-height:1;pointer-events:none;letter-spacing:-4px}
-.calorie-eyebrow{font-family:var(--oswald);font-size:8px;letter-spacing:5px;color:rgba(255,255,255,0.6);margin-bottom:8px;text-transform:uppercase}
-.calorie-num{font-family:var(--bebas);font-size:80px;color:var(--white);line-height:1;letter-spacing:-2px}
-.calorie-unit{font-family:var(--oswald);font-size:16px;font-weight:300;letter-spacing:4px;color:rgba(255,255,255,0.7);margin-top:4px}
-.calorie-note{font-family:var(--inter);font-size:10px;color:rgba(255,255,255,0.5);margin-top:12px}
-.macro-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-bottom:2px}
-.macro-card{background:var(--black2);border-bottom:3px solid;padding:14px;border-top:1px solid var(--gray);border-left:1px solid var(--gray);border-right:1px solid var(--gray)}
-.macro-icon{font-size:18px;margin-bottom:8px}
-.macro-name{font-family:var(--oswald);font-size:7px;letter-spacing:3px;color:var(--gray3);text-transform:uppercase}
-.macro-amount{font-family:var(--bebas);font-size:28px;line-height:1;margin-top:4px}
-.macro-kcal{font-family:var(--oswald);font-size:8px;color:var(--gray3);margin-top:3px;letter-spacing:1px}
-.macro-target{font-family:var(--oswald);font-size:8px;margin-top:2px;letter-spacing:1px}
-.macro-sources{border-top:1px solid var(--gray);margin-top:10px;padding-top:8px}
-.macro-source{font-family:var(--inter);font-size:9px;color:var(--gray3);margin-bottom:3px}
-.meal-row{display:flex;gap:0;border-bottom:1px solid var(--gray)}
-.meal-row:last-child{border-bottom:none}
-.meal-time-col{background:var(--black3);padding:10px 8px;min-width:70px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--gray)}
-.meal-time{font-family:var(--oswald);font-size:8px;letter-spacing:2px;color:var(--red);text-transform:uppercase}
-.meal-name{font-family:var(--oswald);font-size:11px;font-weight:600;color:var(--white);margin-top:2px}
-.meal-body{padding:10px 12px}
-.meal-detail{font-family:var(--inter);font-size:10px;color:var(--gray3);line-height:1.6}
-
-/* ═══ SUPPLEMENTS ═══ */
-.tier-strip{
-  background:var(--red);padding:6px 14px;
-  font-family:var(--bebas);font-size:14px;letter-spacing:4px;
-  display:flex;align-items:center;gap:14px;margin-bottom:2px;margin-top:14px;
-}
-.tier-strip-sub{font-family:var(--oswald);font-size:9px;font-weight:300;letter-spacing:2px;color:rgba(255,255,255,0.6)}
-.suppl-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:4px}
-.suppl-card{background:var(--black2);border:1px solid var(--gray);padding:12px}
-.suppl-name{font-family:var(--oswald);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white)}
-.suppl-dose{font-family:var(--bebas);font-size:18px;color:var(--red);margin-top:4px;letter-spacing:1px}
-.suppl-timing{font-family:var(--inter);font-size:9px;color:var(--gray3);margin-top:2px}
-.suppl-sep{height:1px;background:var(--gray);margin:8px 0}
-.suppl-effect{font-family:var(--inter);font-size:9px;color:var(--gray3)}
-
-/* ═══ ROADMAP ═══ */
-.roadmap-phase-head{
-  background:var(--black2);border-left:4px solid var(--red);
-  padding:12px 14px;margin-bottom:2px;
-  display:flex;align-items:center;gap:12px;
-}
-.roadmap-phase-num{font-family:var(--bebas);font-size:44px;color:var(--red);line-height:1}
-.roadmap-phase-name{font-family:var(--bebas);font-size:18px;letter-spacing:2px}
-.roadmap-phase-months{font-family:var(--oswald);font-size:9px;letter-spacing:3px;color:var(--gray3);margin-top:2px;text-transform:uppercase}
-.roadmap-item{display:flex;gap:0;margin-bottom:2px}
-.roadmap-month-tag{
-  background:var(--black3);border:1px solid var(--gray);border-right:none;
-  min-width:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;
-}
-.roadmap-m{font-family:var(--oswald);font-size:7px;letter-spacing:2px;color:var(--gray3);text-transform:uppercase}
-.roadmap-n{font-family:var(--bebas);font-size:20px;color:var(--white);line-height:1}
-.roadmap-body{flex:1;background:var(--black2);border:1px solid var(--gray);padding:8px 12px}
-.roadmap-note{font-family:var(--inter);font-size:10px;color:var(--gray3);margin-bottom:5px}
-.roadmap-vals{display:flex;gap:6px}
-.roadmap-val{font-family:var(--oswald);font-size:9px;font-weight:600;letter-spacing:1px;padding:2px 7px;border:1px solid}
-
-/* ═══ CHRONO ═══ */
-#chrono-fab{
-  position:fixed;bottom:calc(80px + var(--safe-bottom));right:14px;
-  width:50px;height:50px;
-  background:var(--red);border:none;color:var(--white);
-  font-size:20px;cursor:pointer;z-index:90;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 16px rgba(232,0,29,0.4);transition:all .2s;
-}
-#chrono-fab.running{background:var(--green);box-shadow:0 4px 16px rgba(0,200,81,0.4)}
-#chrono-fab.finished{background:var(--yellow);color:var(--black);box-shadow:0 4px 16px rgba(255,230,0,0.5)}
-#chrono-fab:active{transform:scale(.93)}
-
-#chrono-modal{display:none;position:fixed;inset:0;z-index:998;background:rgba(0,0,0,0.92);align-items:flex-end;justify-content:center}
-#chrono-modal.open{display:flex}
-#chrono-panel{
-  background:var(--black);border-top:3px solid var(--red);
-  width:100%;max-width:440px;
-  padding:20px 16px calc(20px + var(--safe-bottom));
-}
-.chrono-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.chrono-title{font-family:var(--bebas);font-size:24px;letter-spacing:3px;color:var(--red)}
-.chrono-close{background:var(--black3);border:1px solid var(--gray);color:var(--gray3);width:32px;height:32px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.presets-scroll{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px;margin-bottom:18px}
-.preset-btn{
-  background:var(--black3);border:1px solid var(--gray);
-  padding:8px 14px;font-family:var(--oswald);font-size:10px;letter-spacing:2px;
-  color:var(--gray3);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .1s;text-transform:uppercase;
-}
-.preset-btn.active{background:var(--red);border-color:var(--red);color:var(--white)}
-.preset-btn:active{transform:scale(.95)}
-.chrono-face{
-  background:var(--black2);border:2px solid var(--gray);
-  padding:24px 0;text-align:center;margin-bottom:16px;
-  position:relative;overflow:hidden;
-}
-.chrono-face::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gray);transition:background .3s}
-.chrono-face.running::before{background:var(--green)}
-.chrono-face.finished::before{background:var(--yellow)}
-.chrono-time{font-family:var(--bebas);font-size:88px;letter-spacing:-4px;line-height:1;color:var(--white);transition:color .3s}
-.chrono-time.running{color:var(--green)}
-.chrono-time.finished{color:var(--yellow)}
-.chrono-sub{font-family:var(--oswald);font-size:9px;letter-spacing:4px;color:var(--gray3);margin-top:6px;text-transform:uppercase}
-.chrono-track{height:3px;background:var(--gray);margin-top:18px;position:relative}
-.chrono-fill{height:3px;transition:width .8s linear;position:relative}
-.chrono-fill::after{content:'';position:absolute;right:-3px;top:-3px;width:9px;height:9px;background:currentColor;border-radius:50%}
-.chrono-btns{display:grid;grid-template-columns:2fr 1fr;gap:4px}
-.chrono-btn-main{background:var(--red);color:var(--white);border:none;padding:15px;font-family:var(--oswald);font-size:11px;font-weight:700;letter-spacing:4px;cursor:pointer;transition:all .15s;text-transform:uppercase}
-.chrono-btn-main.pause-mode{background:var(--black3);border:2px solid var(--gray);color:var(--white)}
-.chrono-btn-main:active{transform:scale(.97)}
-.chrono-btn-reset{background:var(--black3);border:2px solid var(--gray);color:var(--gray3);padding:15px;font-family:var(--oswald);font-size:10px;letter-spacing:3px;cursor:pointer;text-transform:uppercase}
-
-/* ═══ VIDEO MODAL ═══ */
-#video-modal{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.97);align-items:center;justify-content:center}
-#video-modal.open{display:flex}
-#video-modal video{max-width:100%;max-height:88vh}
-#video-modal-close{position:absolute;top:18px;right:18px;background:var(--red);border:none;color:#fff;width:36px;height:36px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--oswald)}
-
-#install-banner{display:none;background:var(--black3);border-bottom:1px solid var(--gray);padding:8px 16px;font-family:var(--oswald);font-size:8px;letter-spacing:3px;color:var(--red);cursor:pointer;text-align:center;text-transform:uppercase}
-#install-banner.show{display:block}
-#toast{position:fixed;bottom:calc(82px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:var(--black3);border:2px solid var(--gray);color:var(--white);padding:10px 20px;font-family:var(--oswald);font-size:9px;letter-spacing:3px;z-index:200;opacity:0;transition:all .25s;pointer-events:none;white-space:nowrap;text-transform:uppercase}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-.red-line{height:2px;background:var(--red);margin:16px 0}
-.white-line{height:1px;background:var(--gray);margin:14px 0}
-
-input[type=number]{-moz-appearance:textfield}
-input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none}
-@media(max-width:380px){.perf-grid{grid-template-columns:1fr}.macro-grid{grid-template-columns:1fr}}
+/* ═══ RAPPELS ═══ */
+.notif-block{background:var(--black2);border:1px solid var(--gray);padding:16px;margin-bottom:10px}
+.notif-day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px}
+.notif-day-btn{background:var(--black3);border:1px solid var(--gray);padding:8px 4px;font-family:var(--oswald);font-size:9px;letter-spacing:1px;color:var(--gray3);cursor:pointer;text-align:center;text-transform:uppercase;transition:all .1s}
+.notif-day-btn.selected{background:var(--red);border-color:var(--red);color:var(--white)}
+.notif-status{font-family:var(--oswald);font-size:10px;letter-spacing:2px;padding:8px 12px;margin-bottom:10px;text-align:center;text-transform:uppercase}
+.notif-ok{background:rgba(0,200,81,0.1);border:1px solid rgba(0,200,81,0.3);color:var(--green)}
+.notif-ko{background:rgba(232,0,29,0.1);border:1px solid rgba(232,0,29,0.3);color:var(--red)}
+.notif-save-btn{background:var(--red);color:var(--white);border:none;font-family:var(--bebas);font-size:13px;letter-spacing:3px;padding:11px;width:100%;cursor:pointer}
 </style>
 </head>
 <body>
@@ -467,6 +168,10 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     </div>
 
     <div class="sw-label" style="margin-top:16px">Semaine type</div>
+    <div id="deload-banner" class="">
+      <div class="deload-title">⚡ SEMAINE DÉLOAD</div>
+      <div class="deload-text">Tu as complété 4 semaines d'entraînement. Cette semaine : −40% volume, charges identiques. Récupération SNC obligatoire.</div>
+    </div>
     <div class="sessions-grid" id="sessions-grid"></div>
     <div id="session-detail" style="display:none"></div>
 
@@ -518,6 +223,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
         </div>
       </div>
       <div id="pred-container"></div>
+      <div id="chart-legend-container"></div>
       <div class="chart-container"><canvas id="main-chart"></canvas></div>
     </div>
     <div class="sw-label">Toutes les métriques</div>
@@ -559,11 +265,17 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 
   <!-- PLUS -->
   <div id="view-more" class="view">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:20px">
-      <button onclick="setMoreTab('suppl')" id="tab-suppl" class="period-btn active">Compléments</button>
-      <button onclick="setMoreTab('roadmap')" id="tab-roadmap" class="period-btn">Roadmap</button>
+    <div class="more-tabs">
+      <button onclick="setMoreTab('suppl')" id="tab-suppl" class="more-tab-btn active">COMPLÉMENTS</button>
+      <button onclick="setMoreTab('roadmap')" id="tab-roadmap" class="more-tab-btn">ROADMAP</button>
+      <button onclick="setMoreTab('tools')" id="tab-tools" class="more-tab-btn">OUTILS</button>
+      <button onclick="setMoreTab('poids')" id="tab-poids" class="more-tab-btn">POIDS</button>
     </div>
+
+    <!-- COMPLÉMENTS -->
     <div id="more-suppl"><div id="supplements-content"></div></div>
+
+    <!-- ROADMAP -->
     <div id="more-roadmap" style="display:none">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:16px">
         <div style="background:var(--black2);border:1px solid var(--gray);padding:14px">
@@ -583,6 +295,91 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
         <div style="font-family:var(--oswald);font-size:9px;letter-spacing:4px;color:rgba(255,255,255,0.5);margin-top:8px;position:relative;text-transform:uppercase">La régularité fait tout</div>
       </div>
     </div>
+
+    <!-- OUTILS -->
+    <div id="more-tools" style="display:none">
+      <!-- Calculateur 1RM -->
+      <div class="sw-label">CALCULATEUR DE CHARGE</div>
+      <div class="calc-block">
+        <div style="font-family:var(--inter);font-size:10px;color:var(--gray3);margin-bottom:12px">Rentre ton 1RM estimé ou réel pour un exercice — l'appli calcule exactement ce que tu dois mettre sur la ceinture pour chaque type de bloc.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px">
+          <div>
+            <div style="font-family:var(--oswald);font-size:8px;letter-spacing:2px;color:var(--gray3);margin-bottom:5px;text-transform:uppercase">Exercice</div>
+            <select id="calc-exercise" style="background:var(--black3);border:2px solid var(--gray);color:var(--white);font-family:var(--oswald);font-size:12px;padding:8px;width:100%;outline:none;-webkit-appearance:none">
+              <option>Pull-up lesté</option>
+              <option>Dip lesté</option>
+              <option>Squat</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div>
+            <div style="font-family:var(--oswald);font-size:8px;letter-spacing:2px;color:var(--gray3);margin-bottom:5px;text-transform:uppercase">Mon 1RM (kg)</div>
+            <input type="number" id="calc-1rm" class="calc-input" placeholder="0" oninput="renderCalcTable()" style="width:100%"/>
+          </div>
+        </div>
+        <div style="font-family:var(--oswald);font-size:8px;letter-spacing:2px;color:var(--gray3);margin-bottom:8px;text-transform:uppercase">Ou calcule ton 1RM depuis une série</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:12px">
+          <input type="number" id="calc-w" class="calc-input" placeholder="kg" style="font-size:14px" oninput="calcFrom()"/>
+          <input type="number" id="calc-r" class="calc-input" placeholder="reps" style="font-size:14px" oninput="calcFrom()"/>
+          <div style="background:var(--black3);border:2px solid var(--gray);display:flex;align-items:center;justify-content:center;padding:8px">
+            <span style="font-family:var(--bebas);font-size:16px;color:var(--red)" id="calc-1rm-result">—</span>
+          </div>
+        </div>
+        <table class="calc-table" id="calc-table">
+          <tr class="calc-tr"><td class="calc-td calc-td-pct">60%</td><td class="calc-td calc-td-label">Échauffement</td><td class="calc-td calc-td-kg" id="c60">—</td></tr>
+          <tr class="calc-tr"><td class="calc-td calc-td-pct">70%</td><td class="calc-td calc-td-label">Volume 8×3</td><td class="calc-td calc-td-kg highlight" id="c70">—</td></tr>
+          <tr class="calc-tr"><td class="calc-td calc-td-pct">75%</td><td class="calc-td calc-td-label">Technique</td><td class="calc-td calc-td-kg" id="c75">—</td></tr>
+          <tr class="calc-tr"><td class="calc-td calc-td-pct">80%</td><td class="calc-td calc-td-label">Intensité 5×5</td><td class="calc-td calc-td-kg highlight" id="c80">—</td></tr>
+          <tr class="calc-tr"><td class="calc-td calc-td-pct">85%</td><td class="calc-td calc-td-label">Force 4×4</td><td class="calc-td calc-td-kg" id="c85">—</td></tr>
+          <tr class="calc-tr"><td class="calc-td calc-td-pct">90%</td><td class="calc-td calc-td-label">Peak 3×3</td><td class="calc-td calc-td-kg highlight" id="c90">—</td></tr>
+          <tr class="calc-tr"><td class="calc-td calc-td-pct">95%</td><td class="calc-td calc-td-label">Near-max 2×2</td><td class="calc-td calc-td-kg" id="c95">—</td></tr>
+          <tr class="calc-tr"><td class="calc-td calc-td-pct">100%</td><td class="calc-td calc-td-label">1RM Test</td><td class="calc-td calc-td-kg highlight" id="c100">—</td></tr>
+        </table>
+      </div>
+
+      <!-- Échauffement guidé -->
+      <div class="sw-label">ÉCHAUFFEMENT GUIDÉ</div>
+      <div style="background:var(--black2);border:1px solid var(--gray);padding:14px;margin-bottom:14px">
+        <div style="font-family:var(--inter);font-size:10px;color:var(--gray3);margin-bottom:12px">Protocole complet avant chaque séance lourde. Durée totale : ~16 min.</div>
+        <div id="warmup-timer-display" style="display:none;text-align:center;padding:14px 0;margin-bottom:12px;background:var(--black3);border:2px solid var(--green)">
+          <div id="warmup-step-label" style="font-family:var(--oswald);font-size:10px;letter-spacing:3px;color:var(--green);margin-bottom:4px;text-transform:uppercase"></div>
+          <div id="warmup-countdown" style="font-family:var(--bebas);font-size:72px;color:var(--white);line-height:1"></div>
+          <div id="warmup-next-label" style="font-family:var(--inter);font-size:9px;color:var(--gray3);margin-top:6px"></div>
+        </div>
+        <button class="warmup-start-btn" id="warmup-btn" onclick="toggleWarmup()">▶ DÉMARRER L'ÉCHAUFFEMENT</button>
+        <div id="warmup-steps"></div>
+      </div>
+
+      <!-- Rappels -->
+    </div>
+
+    <!-- POIDS DE CORPS -->
+    <div id="more-poids" style="display:none">
+      <div class="sw-label">SUIVI POIDS DE CORPS</div>
+      <div style="background:var(--black2);border:1px solid var(--gray);padding:14px;margin-bottom:10px">
+        <div class="weight-stat-row" id="weight-stats"></div>
+        <div class="weight-input-row">
+          <input type="number" id="weight-input" class="weight-input" placeholder="75.0" step="0.1"/>
+          <button class="weight-add-btn" onclick="addWeight()">+</button>
+        </div>
+        <div class="weight-chart-wrap"><canvas id="weight-chart"></canvas></div>
+        <div class="sw-label" style="margin-top:6px">Historique</div>
+        <div class="weight-log" id="weight-log"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JOURNAL MODAL -->
+<div id="journal-modal">
+  <div id="journal-panel">
+    <div class="journal-header">
+      <div class="journal-title">JOURNAL SÉANCE</div>
+      <button class="journal-close" onclick="closeJournal()">✕</button>
+    </div>
+    <div style="font-family:var(--inter);font-size:10px;color:var(--gray3);margin-bottom:14px">Note les charges utilisées aujourd'hui (optionnel)</div>
+    <div id="journal-exercises"></div>
+    <button class="journal-save-btn" onclick="saveJournal()">✓ ENREGISTRER LA SÉANCE</button>
   </div>
 </div>
 
@@ -830,33 +627,106 @@ function deleteVideoDB(id){return new Promise(res=>{const tx=db.transaction('vid
 let videosIndex={};
 function saveVidIdx(){try{localStorage.setItem('slsw_vi',JSON.stringify(videosIndex));}catch(e){}}
 function loadVidIdx(){try{const v=localStorage.getItem('slsw_vi');if(v)videosIndex=JSON.parse(v);}catch(e){}}
-function saveState(){try{localStorage.setItem('slsw_s',JSON.stringify(state.sessions));localStorage.setItem('slsw_p',JSON.stringify(state.perfs));}catch(e){}}
-function loadState(){try{const s=localStorage.getItem('slsw_s');if(s)state.sessions=JSON.parse(s);const p=localStorage.getItem('slsw_p');if(p)state.perfs=JSON.parse(p);}catch(e){}}
+function saveState(){try{localStorage.setItem('slsw_s',JSON.stringify(state.sessions));localStorage.setItem('slsw_p',JSON.stringify(state.perfs));localStorage.setItem('slsw_w',JSON.stringify(state.weights||[]));}catch(e){}}
+function loadState(){try{const s=localStorage.getItem('slsw_s');if(s)state.sessions=JSON.parse(s);const p=localStorage.getItem('slsw_p');if(p)state.perfs=JSON.parse(p);const w=localStorage.getItem('slsw_w');if(w)state.weights=JSON.parse(w);else state.weights=[];}catch(e){}}
 
 // NAV
 function setView(v){state.currentView=v;document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));document.getElementById(`view-${v}`).classList.add('active');document.getElementById(`nav-${v}`).classList.add('active');document.getElementById('app-content').scrollTop=0;if(v==='graphs')renderGraphsUI();if(v==='progress')renderProgress();}
-function setMoreTab(tab){state.moreTab=tab;document.getElementById('more-suppl').style.display=tab==='suppl'?'block':'none';document.getElementById('more-roadmap').style.display=tab==='roadmap'?'block':'none';document.getElementById('tab-suppl').className='period-btn'+(tab==='suppl'?' active':'');document.getElementById('tab-roadmap').className='period-btn'+(tab==='roadmap'?' active':'');}
 function showToast(msg,isError=false){const t=document.getElementById('toast');t.textContent=msg;t.style.borderColor=isError?'var(--red)':'var(--gray)';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+
+// ═══ AUDIO SYSTEM (iOS compatible) ═══
+// WAV 440Hz court généré en base64 — fonctionne sur iOS Safari sans restriction
+function makeBeepWav(freq, durationMs, vol){
+  const sampleRate=44100;
+  const numSamples=Math.floor(sampleRate*durationMs/1000);
+  const buf=new ArrayBuffer(44+numSamples*2);
+  const view=new DataView(buf);
+  function writeStr(o,s){for(let i=0;i<s.length;i++)view.setUint8(o+i,s.charCodeAt(i));}
+  writeStr(0,'RIFF');view.setUint32(4,36+numSamples*2,true);writeStr(8,'WAVE');
+  writeStr(12,'fmt ');view.setUint32(16,16,true);view.setUint16(20,1,true);
+  view.setUint16(22,1,true);view.setUint32(24,sampleRate,true);
+  view.setUint32(28,sampleRate*2,true);view.setUint16(32,2,true);view.setUint16(34,16,true);
+  writeStr(36,'data');view.setUint32(40,numSamples*2,true);
+  for(let i=0;i<numSamples;i++){
+    const t=i/sampleRate;
+    // Envelope: attaque rapide, décroissance exponentielle
+    const env=Math.exp(-t*12)*vol;
+    const sample=Math.sin(2*Math.PI*freq*t)*env;
+    view.setInt16(44+i*2,Math.max(-32767,Math.min(32767,sample*32767)),true);
+  }
+  return 'data:audio/wav;base64,'+btoa(String.fromCharCode(...new Uint8Array(buf)));
+}
+
+// Pré-générer les sons au chargement
+const BEEP_TICK  = makeBeepWav(880,  80,  0.6);  // bip court 10 dernières sec
+const BEEP_LAST  = makeBeepWav(1200, 100, 0.8);  // bip final plus aigu
+const BEEP_END1  = makeBeepWav(440,  220, 0.7);  // fin : 3 bips montants
+const BEEP_END2  = makeBeepWav(660,  220, 0.7);
+const BEEP_END3  = makeBeepWav(880,  300, 0.9);
+
+// Pool d'Audio elements pour éviter les délais iOS
+const audioPool=[];
+for(let i=0;i<6;i++){const a=new Audio();a.preload='auto';audioPool.push(a);}
+let poolIdx=0;
+
+function playSound(src){
+  try{
+    const a=audioPool[poolIdx%audioPool.length];
+    poolIdx++;
+    a.src=src;
+    a.currentTime=0;
+    const p=a.play();
+    if(p&&p.catch)p.catch(()=>{});
+  }catch(e){}
+}
+
+function playFinalSequence(){
+  playSound(BEEP_END1);
+  setTimeout(()=>playSound(BEEP_END2),220);
+  setTimeout(()=>playSound(BEEP_END3),440);
+}
+
+// Déverrouiller l'audio iOS au premier toucher
+let audioUnlocked=false;
+function unlockAudio(){
+  if(audioUnlocked)return;
+  audioPool.forEach(a=>{
+    a.src=BEEP_TICK;a.volume=0;
+    const p=a.play();
+    if(p&&p.then)p.then(()=>{a.pause();a.volume=1;a.currentTime=0;}).catch(()=>{});
+  });
+  audioUnlocked=true;
+}
 
 // CHRONO
 let chrono={total:120,remaining:120,running:false,interval:null};
+
 function openChrono(s){if(s)setPreset(s);document.getElementById('chrono-modal').classList.add('open');}
 function closeChrono(){document.getElementById('chrono-modal').classList.remove('open');}
 function fmt(s){const m=Math.floor(s/60),sc=s%60;return`${String(m).padStart(2,'0')}:${String(sc).padStart(2,'0')}`;}
+
 function updateChronoUI(){
   const el=document.getElementById('chrono-display'),lbl=document.getElementById('chrono-label'),bar=document.getElementById('chrono-bar'),fab=document.getElementById('chrono-fab'),btn=document.getElementById('chrono-play-btn'),face=document.getElementById('chrono-face');
   const pct=chrono.total>0?(chrono.remaining/chrono.total)*100:0;
   el.textContent=fmt(chrono.remaining);bar.style.width=pct+'%';
   if(chrono.remaining===0){
-    el.className='chrono-time finished';face.className='chrono-face finished';lbl.textContent='REPOS TERMINÉ — C\'EST REPARTI';
+    el.className='chrono-time finished';face.className='chrono-face finished';
+    lbl.textContent='REPOS TERMINÉ — C\'EST REPARTI';
     bar.style.background='var(--yellow)';fab.className='finished';fab.textContent='✓';
     btn.textContent='REJOUER';btn.className='chrono-btn-main';
+    playFinalSequence();
     if(navigator.vibrate)navigator.vibrate([200,100,200,100,400]);
   }else if(chrono.running){
-    el.className='chrono-time running';face.className='chrono-face running';lbl.textContent='REPOS EN COURS';
-    bar.style.background=chrono.remaining<=10?'#E8001D':chrono.remaining<=30?'#FFE600':'#00C851';
+    const isLast10=chrono.remaining<=10;
+    el.className='chrono-time running';face.className='chrono-face running';
+    lbl.textContent=isLast10?`⚠️  ${chrono.remaining}  ⚠️`:'REPOS EN COURS';
+    bar.style.background=isLast10?'#E8001D':chrono.remaining<=30?'#FFE600':'#00C851';
     fab.className='running';fab.textContent='⏸';
     btn.textContent='PAUSE';btn.className='chrono-btn-main pause-mode';
+    // BIP à chaque seconde des 10 dernières
+    if(isLast10){
+      playSound(chrono.remaining===1?BEEP_LAST:BEEP_TICK);
+    }
   }else{
     el.className='chrono-time';face.className='chrono-face';lbl.textContent='PRÊT';
     bar.style.background='var(--red)';fab.className='';fab.textContent='⏱';
@@ -871,17 +741,248 @@ function setPreset(s){
 }
 function toggleChrono(){
   if(chrono.remaining===0){resetChrono();return;}
+  unlockAudio(); // déverrouille le son iOS au premier appui
   chrono.running=!chrono.running;
-  if(chrono.running){chrono.interval=setInterval(()=>{if(chrono.remaining>0){chrono.remaining--;updateChronoUI();}else{clearInterval(chrono.interval);chrono.interval=null;chrono.running=false;updateChronoUI();}},1000);}
-  else{clearInterval(chrono.interval);chrono.interval=null;}
+  if(chrono.running){
+    chrono.interval=setInterval(()=>{
+      if(chrono.remaining>0){chrono.remaining--;updateChronoUI();}
+      else{clearInterval(chrono.interval);chrono.interval=null;chrono.running=false;updateChronoUI();}
+    },1000);
+  }else{clearInterval(chrono.interval);chrono.interval=null;}
   updateChronoUI();
 }
 function resetChrono(){chrono.running=false;if(chrono.interval){clearInterval(chrono.interval);chrono.interval=null;}chrono.remaining=chrono.total;updateChronoUI();}
-function startRestTimer(s){setPreset(s);openChrono();toggleChrono();}
+function startRestTimer(s){setPreset(s);openChrono();setTimeout(()=>{unlockAudio();toggleChrono();},100);}
 
-// SESSION
-function logSession(){state.sessions.push({date:new Date().toISOString(),phase:state.currentPhase+1});saveState();updateHeader();renderPhaseProgress();const btn=document.getElementById('btn-log');btn.textContent='✓ ENREGISTRÉ';btn.classList.add('success');setTimeout(()=>{btn.textContent='⚡ SWATÉ';btn.classList.remove('success');},2000);showToast('SÉANCE ENREGISTRÉE');}
+// ═══ MORE TABS ═══
+function setMoreTab(tab){
+  state.moreTab=tab;
+  ['suppl','roadmap','tools','poids'].forEach(t=>{
+    document.getElementById(`more-${t}`).style.display=t===tab?'block':'none';
+    document.getElementById(`tab-${t}`).className='more-tab-btn'+(t===tab?' active':'');
+  });
+  if(tab==='poids')renderWeightChart();
+  if(tab==='tools')renderWarmupSteps();
+}
+
+// ═══ SESSION + JOURNAL ═══
+function logSession(){
+  const p=PHASES[state.currentPhase];
+  const sess=state.activeSession?p.sessions.find(s=>s.day===state.activeSession):p.sessions[0];
+  openJournal(sess||p.sessions[0]);
+}
 function updateHeader(){const y=new Date().getFullYear();document.getElementById('sessions-year-count').textContent=state.sessions.filter(s=>new Date(s.date).getFullYear()===y).length;}
+
+let journalSession=null;
+function openJournal(sess){
+  journalSession=sess;
+  const exList=sess.exercises.filter(e=>e.cat==='P'||e.cat==='J');
+  document.getElementById('journal-exercises').innerHTML=exList.map((ex,i)=>`
+    <div class="journal-row">
+      <div class="journal-ex-name">${ex.name}</div>
+      <input type="number" class="journal-input" placeholder="—" id="jex-${i}" step="0.5"/>
+      <div class="journal-unit">KG</div>
+    </div>`).join('');
+  document.getElementById('journal-modal').classList.add('open');
+}
+function closeJournal(){document.getElementById('journal-modal').classList.remove('open');}
+function saveJournal(){
+  const exList=journalSession?journalSession.exercises.filter(e=>e.cat==='P'||e.cat==='J'):[];
+  const charges={};
+  exList.forEach((ex,i)=>{
+    const v=parseFloat(document.getElementById(`jex-${i}`)?.value);
+    if(!isNaN(v)&&v>0)charges[ex.name]=v;
+  });
+  state.sessions.push({date:new Date().toISOString(),phase:state.currentPhase+1,session:journalSession?.name||'',charges});
+  saveState();updateHeader();renderPhaseProgress();checkDeload();
+  closeJournal();
+  const btn=document.getElementById('btn-log');
+  btn.textContent='✓ ENREGISTRÉ';btn.classList.add('success');
+  setTimeout(()=>{btn.textContent='⚡ SWATÉ';btn.classList.remove('success');},2000);
+  showToast('SÉANCE ENREGISTRÉE');
+}
+
+// ═══ DÉLOAD ═══
+function checkDeload(){
+  const total=state.sessions.length;
+  // Toutes les 16 séances (~4 semaines × 4 jours)
+  const isDeload=total>0&&total%16===0;
+  const banner=document.getElementById('deload-banner');
+  if(banner)banner.classList.toggle('show',isDeload);
+}
+
+// ═══ CALCULATEUR 1RM ═══
+function calcFrom(){
+  const w=parseFloat(document.getElementById('calc-w')?.value);
+  const r=parseFloat(document.getElementById('calc-r')?.value);
+  if(!isNaN(w)&&!isNaN(r)&&r>0&&r<30){
+    const orm=Math.round(w*(1+r/30));
+    document.getElementById('calc-1rm-result').textContent=orm+' KG';
+    document.getElementById('calc-1rm').value=orm;
+    renderCalcTable();
+  }
+}
+function renderCalcTable(){
+  const orm=parseFloat(document.getElementById('calc-1rm')?.value)||0;
+  [60,70,75,80,85,90,95,100].forEach(pct=>{
+    const el=document.getElementById(`c${pct}`);
+    if(el)el.textContent=orm>0?Math.round(orm*pct/100)+' KG':'—';
+  });
+}
+
+// ═══ ÉCHAUFFEMENT ═══
+const WARMUP_STEPS=[
+  {name:'Foam roll général',detail:'Dos, épaules, hanches — rouleau',duration:180},
+  {name:'Rotation épaules',detail:'2×15 chaque côté — amplitude max',duration:120},
+  {name:'Band pull-aparts',detail:'3×15 bande élastique — scapulaire',duration:120},
+  {name:'Dead hang progressif',detail:'3×20-30s — décompression colonne',duration:180},
+  {name:'Pull-ups poids corps',detail:'2×5 — activation dorsale',duration:120},
+  {name:'Dips poids corps',detail:'2×5 — activation poussée',duration:120},
+  {name:'Hollow body hold',detail:'3×20s — activation core',duration:120},
+  {name:'Explosive pull-up × 3',detail:'Reps légères à vitesse max',duration:90},
+];
+let warmupState={running:false,step:0,remaining:0,interval:null};
+
+function renderWarmupSteps(){
+  document.getElementById('warmup-steps').innerHTML=WARMUP_STEPS.map((s,i)=>`
+    <div class="warmup-step ${warmupState.step===i&&warmupState.running?'active':i<warmupState.step?'done':''}" id="ws-${i}">
+      <div class="warmup-step-num">${i+1}</div>
+      <div class="warmup-step-info">
+        <div class="warmup-step-name">${s.name}</div>
+        <div class="warmup-step-detail">${s.detail}</div>
+      </div>
+      <div class="warmup-step-time">${Math.floor(s.duration/60)}:${String(s.duration%60).padStart(2,'0')}</div>
+    </div>`).join('');
+}
+function toggleWarmup(){
+  if(warmupState.running){
+    // Stop
+    clearInterval(warmupState.interval);warmupState.interval=null;
+    warmupState.running=false;warmupState.step=0;warmupState.remaining=0;
+    document.getElementById('warmup-timer-display').style.display='none';
+    document.getElementById('warmup-btn').textContent='▶ DÉMARRER L\'ÉCHAUFFEMENT';
+    document.getElementById('warmup-btn').className='warmup-start-btn';
+    renderWarmupSteps();
+  } else {
+    warmupState.running=true;warmupState.step=0;
+    startWarmupStep(0);
+    document.getElementById('warmup-btn').textContent='■ ARRÊTER';
+    document.getElementById('warmup-btn').className='warmup-start-btn running';
+  }
+}
+function startWarmupStep(idx){
+  if(idx>=WARMUP_STEPS.length){
+    // Terminé
+    warmupState.running=false;
+    document.getElementById('warmup-timer-display').style.display='none';
+    document.getElementById('warmup-btn').textContent='✓ ÉCHAUFFEMENT TERMINÉ';
+    document.getElementById('warmup-btn').className='warmup-start-btn';
+    showToast('ÉCHAUFFEMENT TERMINÉ — C\'EST PARTI !');
+    renderWarmupSteps();
+    return;
+  }
+  warmupState.step=idx;
+  warmupState.remaining=WARMUP_STEPS[idx].duration;
+  const display=document.getElementById('warmup-timer-display');
+  display.style.display='block';
+  updateWarmupUI();
+  renderWarmupSteps();
+  clearInterval(warmupState.interval);
+  warmupState.interval=setInterval(()=>{
+    warmupState.remaining--;
+    if(warmupState.remaining<=0){
+      clearInterval(warmupState.interval);
+      playSound(BEEP_END2);
+      if(navigator.vibrate)navigator.vibrate([150,80,150]);
+      startWarmupStep(warmupState.step+1);
+    } else {
+      if(warmupState.remaining<=3)playSound(BEEP_TICK);
+      updateWarmupUI();
+    }
+  },1000);
+}
+function updateWarmupUI(){
+  const s=WARMUP_STEPS[warmupState.step];
+  const next=WARMUP_STEPS[warmupState.step+1];
+  document.getElementById('warmup-step-label').textContent=s.name.toUpperCase();
+  document.getElementById('warmup-countdown').textContent=
+    `${Math.floor(warmupState.remaining/60)}:${String(warmupState.remaining%60).padStart(2,'0')}`;
+  document.getElementById('warmup-next-label').textContent=
+    next?`Suivant : ${next.name}`:'Dernier exercice';
+}
+
+// ═══ POIDS DE CORPS ═══
+let weightChart=null;
+function addWeight(){
+  const v=parseFloat(document.getElementById('weight-input').value);
+  if(isNaN(v)||v<30||v>250){showToast('POIDS INVALIDE',true);return;}
+  if(!state.weights)state.weights=[];
+  state.weights.push({date:new Date().toISOString(),value:v});
+  saveState();document.getElementById('weight-input').value='';
+  renderWeightChart();showToast('POIDS ENREGISTRÉ');
+}
+function renderWeightChart(){
+  const weights=state.weights||[];
+  // Stats
+  const vals=weights.map(w=>w.value);
+  const last=vals[vals.length-1]??'—';
+  const min=vals.length?Math.min(...vals):'—';
+  const max=vals.length?Math.max(...vals):'—';
+  document.getElementById('weight-stats').innerHTML=`
+    <div class="weight-stat"><div class="weight-stat-num" style="color:var(--red)">${last}</div><div class="weight-stat-lbl">ACTUEL (KG)</div></div>
+    <div class="weight-stat"><div class="weight-stat-num" style="color:var(--green)">${min}</div><div class="weight-stat-lbl">MINIMUM</div></div>
+    <div class="weight-stat"><div class="weight-stat-num" style="color:var(--yellow)">${max}</div><div class="weight-stat-lbl">MAXIMUM</div></div>`;
+  // Chart
+  const ctx=document.getElementById('weight-chart')?.getContext('2d');
+  if(!ctx)return;
+  if(weightChart)weightChart.destroy();
+  const labels=weights.map(w=>new Date(w.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}));
+  weightChart=new Chart(ctx,{
+    type:'line',
+    data:{labels,datasets:[{data:vals,borderColor:'#E8001D',backgroundColor:'rgba(232,0,29,0.1)',borderWidth:2,pointRadius:3,pointBackgroundColor:'#E8001D',fill:true,tension:.3}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A1A1A',borderColor:'#E8001D',borderWidth:1,bodyColor:'#E8001D',bodyFont:{family:'Bebas Neue',size:16}}},
+      scales:{x:{ticks:{color:'#444',font:{family:'Oswald',size:9}},grid:{color:'#1A1A1A'}},y:{ticks:{color:'#444',font:{family:'Oswald',size:9}},grid:{color:'#1A1A1A'}}}}
+  });
+  // Log
+  document.getElementById('weight-log').innerHTML=[...weights].reverse().slice(0,10).map(w=>`
+    <div class="weight-log-item">
+      <span style="font-family:var(--inter);font-size:11px;color:var(--gray3)">${new Date(w.date).toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'})}</span>
+      <span style="font-family:var(--bebas);font-size:20px;color:var(--red)">${w.value} <span style="font-family:var(--oswald);font-size:10px;color:var(--gray3)">KG</span></span>
+    </div>`).join('');
+}
+
+// ═══ RAPPELS ═══
+let notifDays=[];
+function toggleNotifDay(day){
+  const idx=notifDays.indexOf(day);
+  if(idx>=0)notifDays.splice(idx,1);else notifDays.push(day);
+  document.querySelectorAll('.notif-day-btn').forEach(b=>{
+    b.classList.toggle('selected',notifDays.includes(parseInt(b.dataset.day)));
+  });
+}
+function saveNotifSettings(){
+  try{localStorage.setItem('slsw_notif_days',JSON.stringify(notifDays));}catch(e){}
+  checkNotifToday();
+  showToast('RAPPELS ENREGISTRÉS');
+}
+function loadNotifSettings(){
+  try{const d=localStorage.getItem('slsw_notif_days');if(d){notifDays=JSON.parse(d);document.querySelectorAll('.notif-day-btn').forEach(b=>{b.classList.toggle('selected',notifDays.includes(parseInt(b.dataset.day)));});}}catch(e){}
+}
+function checkNotifToday(){
+  const today=new Date().getDay();
+  const status=document.getElementById('notif-status');
+  if(!status)return;
+  if(notifDays.length===0){status.className='notif-status notif-ko';status.textContent='RAPPELS DÉSACTIVÉS';return;}
+  if(notifDays.includes(today)){
+    status.className='notif-status notif-ok';status.textContent="⚡ AUJOURD'HUI C'EST TRAINING DAY";
+    setTimeout(()=>showToast("⚡ AUJOURD'HUI C'EST TRAINING DAY"),500);
+  } else {
+    const days=['DIM','LUN','MAR','MER','JEU','VEN','SAM'];
+    const next=notifDays.map(d=>({d,diff:(d-today+7)%7})).sort((a,b)=>a.diff-b.diff)[0];
+    status.className='notif-status notif-ko';status.textContent=`PROCHAIN : ${days[next.d]} (dans ${next.diff}j)`;
+  }
+}
 
 // CALENDAR
 function renderCalendar(){renderPhaseSelector();renderPhaseProgress();renderSessionsGrid();renderMilestones();}
@@ -1100,33 +1201,158 @@ function quickAdd(key){
 }
 function filterByPeriod(entries,period){if(!entries||!entries.length)return[];const now=new Date();return entries.filter(e=>{const d=new Date(e.date);if(period==='week'){const w=new Date(now);w.setDate(now.getDate()-7);return d>=w;}if(period==='month'){const m=new Date(now);m.setMonth(now.getMonth()-1);return d>=m;}if(period==='year'){const y=new Date(now);y.setFullYear(now.getFullYear()-1);return d>=y;}return true;});}
 function predictGoal(entries,goal){if(!entries||entries.length<2)return null;const sorted=[...entries].sort((a,b)=>new Date(a.date)-new Date(b.date));const t0=new Date(sorted[0].date).getTime();const pts=sorted.map(e=>({x:(new Date(e.date).getTime()-t0)/86400000,y:e.value}));const n=pts.length,sx=pts.reduce((s,p)=>s+p.x,0),sy=pts.reduce((s,p)=>s+p.y,0),sxy=pts.reduce((s,p)=>s+p.x*p.y,0),sx2=pts.reduce((s,p)=>s+p.x*p.x,0),den=n*sx2-sx*sx;if(den===0)return null;const slope=(n*sxy-sx*sy)/den,intercept=(sy-slope*sx)/n;if(slope<=0)return null;const daysToGoal=(goal-intercept)/slope;if(daysToGoal<0)return null;const goalDate=new Date(t0+daysToGoal*86400000);return{goalDate,daysFromNow:Math.max(0,Math.round((goalDate-new Date())/86400000)),slope};}
+// ═══ PROGRAMME TARGET CURVE ═══
+// Génère les points cibles du programme pour une métrique donnée
+// Basé sur les jalons de chaque phase — date de départ = première séance ou maintenant
+function getProgramTargetPoints(metricKey){
+  // Map metrique → extraction valeur depuis jalons (format "+XX kg × Y" ou "PC × Y")
+  const parseVal = (str) => {
+    if(!str) return null;
+    const m = str.match(/\+?(\d+(?:\.\d+)?)\s*kg/i);
+    return m ? parseFloat(m[1]) : null;
+  };
+  // Valeurs de départ
+  const starts = {
+    pullup_weight: 0, dip_weight: 0, pullup_reps: 14, dip_reps: 15,
+    squat: 70, muscleup: 1, archer: 0, lsit: 0
+  };
+  const startDate = state.sessions.length > 0
+    ? new Date(state.sessions[0].date)
+    : new Date();
+
+  const points = [{date: startDate, value: starts[metricKey] ?? 0}];
+
+  PHASES.forEach(phase => {
+    phase.milestones.forEach(m => {
+      const monthDate = new Date(startDate);
+      monthDate.setMonth(monthDate.getMonth() + m.month);
+      let val = null;
+      if(metricKey === 'pullup_weight') val = parseVal(m.pull);
+      else if(metricKey === 'dip_weight') val = parseVal(m.dip);
+      else if(metricKey === 'squat') {
+        // Extraire squat depuis notes si disponible
+        val = null; // pas de jalons squat explicites
+      }
+      if(val !== null) points.push({date: monthDate, value: val});
+    });
+  });
+  return points;
+}
+
 function renderChart(){
   const pk=PERF_KEYS.find(p=>p.key===state.activeMetric);
-  const allEntries=state.perfs[pk.key]||[];const filtered=filterByPeriod(allEntries,state.chartPeriod);
+  const allEntries=state.perfs[pk.key]||[];
+  const filtered=filterByPeriod(allEntries,state.chartPeriod);
   const sorted=[...filtered].sort((a,b)=>new Date(a.date)-new Date(b.date));
   const best=allEntries.length>0?Math.max(...allEntries.map(e=>e.value)):null;
   const pred=predictGoal(allEntries,pk.goal);
+
   document.getElementById('chart-metric-label').textContent=pk.label.toUpperCase();
   document.getElementById('chart-metric-label').style.color=pk.color;
   document.getElementById('chart-best').textContent=best!==null?best+' '+pk.unit:'—';
   document.getElementById('chart-goal-label').textContent='OBJECTIF — '+pk.goal+' '+pk.unit;
+
   const predC=document.getElementById('pred-container');
-  if(pred)predC.innerHTML=`<div class="pred-ok"><div class="pred-text" style="color:var(--green)">OBJECTIF DANS ${pred.daysFromNow} JOURS — ${pred.goalDate.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}).toUpperCase()}</div><div class="pred-sub">+ ${pred.slope.toFixed(3)} ${pk.unit}/JOUR</div></div>`;
+  if(pred)predC.innerHTML=`<div class="pred-ok"><div class="pred-text" style="color:var(--green)">OBJECTIF DANS ${pred.daysFromNow} JOURS — ${pred.goalDate.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}).toUpperCase()}</div><div class="pred-sub">+${pred.slope.toFixed(3)} ${pk.unit}/JOUR</div></div>`;
   else if(allEntries.length>=2)predC.innerHTML=`<div class="pred-warn"><div class="pred-text" style="color:var(--red)">PROGRESSION STAGNANTE — INTENSIFIE L'ENTRAÎNEMENT</div></div>`;
   else predC.innerHTML=`<div style="font-family:var(--oswald);font-size:9px;letter-spacing:3px;color:var(--gray3);padding:12px 0;text-align:center;text-transform:uppercase">Enregistre tes performances</div>`;
-  const labels=sorted.map(e=>new Date(e.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}));
-  const realData=sorted.map(e=>e.value);let projLabels=[...labels],projData=sorted.map(()=>null);
-  if(pred&&sorted.length>=1){const last=sorted[sorted.length-1],lv=last.value,ld=new Date(last.date);const step=state.chartPeriod==='week'?1:state.chartPeriod==='month'?7:30;projData[projData.length-1]=lv;for(let i=1;i<=5;i++){const d=new Date(ld);d.setDate(d.getDate()+step*i);const v=Math.min(pk.goal*1.1,lv+pred.slope*step*i);projLabels.push(d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}));projData.push(parseFloat(v.toFixed(1)));realData.push(null);if(v>=pk.goal)break;}}
+
+  // ── Courbe réelle ──
+  const realLabels=sorted.map(e=>new Date(e.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}));
+  const realData=sorted.map(e=>e.value);
+
+  // ── Courbe cible programme ──
+  const targetPoints=getProgramTargetPoints(pk.key);
+  // Aligner sur les mêmes labels de date ou créer une timeline combinée
+  // On crée des labels communs sur la période affichée
+  const allDates=[...sorted.map(e=>new Date(e.date)),...targetPoints.map(p=>p.date)].sort((a,b)=>a-b);
+  const now=new Date();
+  
+  // Filtrer targetPoints selon la période
+  const periodStart = state.chartPeriod==='week'?new Date(now.getTime()-7*86400000):
+    state.chartPeriod==='month'?new Date(now.getTime()-30*86400000):
+    state.chartPeriod==='year'?new Date(now.getTime()-365*86400000):
+    new Date('2020-01-01');
+
+  const filteredTarget = targetPoints.filter(p => p.date >= periodStart);
+
+  // Labels combinés
+  const labelMap = new Map();
+  sorted.forEach((e,i) => {
+    const k = new Date(e.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
+    labelMap.set(k, {real: e.value, target: null, ts: new Date(e.date).getTime()});
+  });
+  filteredTarget.forEach(p => {
+    const k = p.date.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
+    const existing = labelMap.get(k);
+    if(existing) existing.target = p.value;
+    else labelMap.set(k, {real: null, target: p.value, ts: p.date.getTime()});
+  });
+
+  const sortedEntries = [...labelMap.entries()].sort((a,b)=>a[1].ts-b[1].ts);
+  const labels = sortedEntries.map(([k])=>k);
+  const realDataFinal = sortedEntries.map(([,v])=>v.real);
+  const targetDataFinal = sortedEntries.map(([,v])=>v.target);
+
+  // Légende
+  document.getElementById('chart-legend-container').innerHTML = `
+    <div class="chart-legend">
+      <div class="chart-legend-item">
+        <div class="chart-legend-line" style="background:${pk.color}"></div>
+        MES PERFS RÉELLES
+      </div>
+      ${filteredTarget.length>0?`<div class="chart-legend-item">
+        <div class="chart-legend-line" style="background:#FFE600;"></div>
+        CIBLE PROGRAMME
+      </div>`:''}
+    </div>`;
+
   const ctx=document.getElementById('main-chart').getContext('2d');
   if(chartInstance)chartInstance.destroy();
   chartInstance=new Chart(ctx,{
-    data:{labels:projLabels,datasets:[
-      {type:'line',label:'Réel',data:realData,borderColor:pk.color,backgroundColor:pk.color+'20',borderWidth:2,pointRadius:4,pointBackgroundColor:pk.color,fill:true,tension:.2,spanGaps:false},
-      {type:'line',label:'Projection',data:projData,borderColor:pk.color+'60',borderDash:[5,5],borderWidth:1.5,pointRadius:0,fill:false,tension:.2,spanGaps:true}
+    data:{labels, datasets:[
+      {
+        type:'line', label:'Réel',
+        data:realDataFinal,
+        borderColor:pk.color,
+        backgroundColor:pk.color+'15',
+        borderWidth:2.5, pointRadius:4, pointBackgroundColor:pk.color,
+        fill:true, tension:.3, spanGaps:false,
+      },
+      {
+        type:'line', label:'Cible programme',
+        data:targetDataFinal,
+        borderColor:'#FFE600',
+        backgroundColor:'rgba(255,230,0,0.04)',
+        borderWidth:1.5, borderDash:[6,4],
+        pointRadius:5, pointStyle:'diamond',
+        pointBackgroundColor:'#FFE600',
+        fill:false, tension:.2, spanGaps:true,
+      }
     ]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A1A1A',borderColor:pk.color,borderWidth:2,titleColor:'#888',bodyColor:pk.color,bodyFont:{family:'Oswald',size:14,weight:'600'}}},
-      scales:{x:{ticks:{color:'#444',font:{family:'Oswald',size:9}},grid:{color:'#1A1A1A'}},y:{ticks:{color:'#444',font:{family:'Oswald',size:9}},grid:{color:'#1A1A1A'}}}}
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'#181818',
+          borderColor:'rgba(255,255,255,0.1)',borderWidth:1,
+          titleColor:'#666',
+          callbacks:{
+            label: ctx=>{
+              if(ctx.parsed.y===null)return null;
+              const name=ctx.dataset.label==='Réel'?'Réel':'Cible';
+              return `${name}: ${ctx.parsed.y} ${pk.unit}`;
+            }
+          },
+          bodyColor:pk.color,bodyFont:{family:'Oswald',size:13,weight:'600'}
+        }
+      },
+      scales:{
+        x:{ticks:{color:'#3a3a3a',font:{family:'Oswald',size:9}},grid:{color:'rgba(255,255,255,0.03)'}},
+        y:{ticks:{color:'#3a3a3a',font:{family:'Oswald',size:9}},grid:{color:'rgba(255,255,255,0.03)'}}
+      }
+    }
   });
 }
 function renderMiniMetrics(){
@@ -1209,7 +1435,8 @@ async function init(){
   await initDB().catch(()=>{});
   loadState();loadVidIdx();updateHeader();
   renderCalendar();renderNutrition();renderSupplements();renderRoadmap();renderGraphsUI();
-  updateChronoUI();
+  updateChronoUI();renderWarmupSteps();
+  loadNotifSettings();checkNotifToday();checkDeload();
 }
 init();
 </script>
